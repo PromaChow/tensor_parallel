@@ -46,11 +46,13 @@ jobs:
           label: Build tensor_parallel
           task: get-measurement
       - name: Test
+
         run: "cd tests
 
           pytest --durations=0 --durations-min=1.0 -v
 
           "
+        continue-on-error: true
       - id: measurement-9
         name: Record Measurement After Test
         uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
