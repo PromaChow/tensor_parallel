@@ -13,20 +13,20 @@ jobs:
         with:
           json-output: true
           task: start-measurement
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Cache dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           key: Key-v1-${{ matrix.python-version }}-${{ hashFiles('setup.cfg') }}
           path: ~/.cache/pip
       - name: Install dependencies
-        run: 'python -m pip install --upgrade pip
+        run: "python -m pip install --upgrade pip
 
-          '
+          "
       - id: measurement-5
         name: Record Measurement After Install dependencies
         uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
@@ -35,9 +35,9 @@ jobs:
           label: Install dependencies
           task: get-measurement
       - name: Build tensor_parallel
-        run: 'pip install .[dev]
+        run: "pip install .[dev]
 
-          '
+          "
       - id: measurement-7
         name: Record Measurement After Build tensor_parallel
         uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
@@ -46,11 +46,11 @@ jobs:
           label: Build tensor_parallel
           task: get-measurement
       - name: Test
-        run: 'cd tests
+        run: "cd tests
 
           pytest --durations=0 --durations-min=1.0 -v
 
-          '
+          "
       - id: measurement-9
         name: Record Measurement After Test
         uses: green-coding-solutions/eco-ci-energy-estimation@862050e4f01f65b1436e5eca18ba4bd85562f0de
